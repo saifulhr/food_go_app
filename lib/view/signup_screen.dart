@@ -66,12 +66,12 @@ class SignupScreen extends GetView<AuthController> {
                 ),
                 TextFeilds(
                   hintText: 'Enter Your Email address',
-                  controller: controller.emailController,
+                  controller: controller.signupemailController,
                   icon: Icons.email,
                 ),
                 TextFeilds(
                   hintText: 'Enter Your Password',
-                  controller: controller.passwordController,
+                  controller: controller.signuppasswordController,
                   icon: Icons.lock,
                   isPassword: true,
                 ),
@@ -99,7 +99,8 @@ class SignupScreen extends GetView<AuthController> {
                         ),
                 ),
                 const SizedBox(height: 10),
-                Center(
+                Align(
+                  alignment: Alignment.bottomRight,
                   child: GestureDetector(
                     onTap: () {
                       Get.to(
@@ -107,9 +108,20 @@ class SignupScreen extends GetView<AuthController> {
                         transition: Transition.noTransition,
                       );
                     },
-                    child: const Text(
-                      "Already have an Account? Sign In",
-                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    child: Text.rich(
+                      TextSpan(
+                        text: "Already have an account? ",
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: "Sign In",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

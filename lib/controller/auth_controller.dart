@@ -14,12 +14,16 @@ class AuthController extends GetxController {
 
   var isLoading = false.obs;
 
-  // textfeild controller
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  // textfeild controller SignUp
+  final TextEditingController signupemailController = TextEditingController();
+  final TextEditingController signuppasswordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  // Log In Contrller
+
+  final TextEditingController loginEmailController = TextEditingController();
+  final TextEditingController loginPasswordController = TextEditingController();
 
   // Signup Function
 
@@ -28,8 +32,8 @@ class AuthController extends GetxController {
       // UI screen Loading
       isLoading.value = true;
       User? user = await _authServices.signUp(
-        emailController.text,
-        passwordController.text,
+        signupemailController.text,
+        signuppasswordController.text,
         firstNameController.text,
         lastNameController.text,
         addressController.text,
@@ -53,13 +57,14 @@ class AuthController extends GetxController {
     }
   }
 
+  // Sign In function
   Future<void> signIn() async {
     try {
       isLoading.value = true;
 
       User? user = await _authServices.signIn(
-        emailController.text.trim(),
-        passwordController.text.trim(),
+        loginEmailController.text,
+        loginPasswordController.text,
       );
 
       if (user != null) {
@@ -76,11 +81,9 @@ class AuthController extends GetxController {
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';
-
+      // Cheack Wrong Email or Password
       if (e.code == 'user-not-found') {
         errorMessage = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided.';
       } else {
         errorMessage = 'Login failed. Please try again.';
       }
