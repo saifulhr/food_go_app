@@ -1,8 +1,11 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_go_app/models/user_model.dart';
+import 'package:food_go_app/profile/profile_screen.dart';
 import 'package:food_go_app/services/auth_services.dart';
 import 'package:food_go_app/view/home_screen.dart';
+import 'package:food_go_app/view/spalsh_screen.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -13,10 +16,18 @@ class AuthController extends GetxController {
   // loading state
 
   var isLoading = false.obs;
+  // Profile Loading
+  var isProfileLoading = false.obs;
+
+  // Profile Textfeild Enabled
+  var textFieldEnable = false.obs;
+
+  Rxn<UserModels> currentUser = Rxn<UserModels>();
 
   // textfeild controller SignUp
   final TextEditingController signupemailController = TextEditingController();
-  final TextEditingController signuppasswordController = TextEditingController();
+  final TextEditingController signuppasswordController =
+      TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
@@ -24,6 +35,12 @@ class AuthController extends GetxController {
 
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPasswordController = TextEditingController();
+
+  // profile controller
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController deliveryController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   // Signup Function
 
@@ -49,7 +66,7 @@ class AuthController extends GetxController {
       }
       log("${user?.email}");
       // back to all screen
-      Get.offAll(() => HomeScreen(), transition: Transition.noTransition);
+      Get.offAll(() => ProfileScreen(), transition: Transition.noTransition);
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;
@@ -106,13 +123,76 @@ class AuthController extends GetxController {
     }
   }
 
+  // FetchUser Profile
+
+  Future<void> fetchUserProfile() async {
+    try {
+      isProfileLoading.value = true;
+      UserModels? userModels = await _authServices.getUserProfile();
+
+      if (userModels != null) {
+        log("Name: ${userModels.firstName}");
+        log("Email: ${userModels.email}");
+        log("Address: ${userModels.address}");
+        log("Password: Not Available");
+
+        currentUser.value = userModels;
+        isProfileLoading.value = false;
+      }
+    } catch (e) {
+      isProfileLoading.value = false;
+      throw Exception("Profile data not found");
+    }
+  }
+
+  Future signOut() async {
+    await _authServices.signOut();
+    Get.snackbar("Success", "User Sign Out Successfully");
+    Get.offAll(SpalshScreen(), transition: Transition.noTransition);
+  }
+
   @override
   void onInit() {
     super.onInit();
-    if (firebaseAuth.currentUser != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.offAll(HomeScreen(), transition: Transition.noTransition);
-      });
+    fetchUserProfile();
+  }
+
+  //  update user function
+  Future<void> updateUserProfile() async {
+    try {
+      isProfileLoading.value = true;
+
+      UserModels updatedUser = UserModels(
+        firstName: nameController.text,
+        lastName: '',
+        email: emailController.text,
+        address: deliveryController.text,
+      );
+
+      await _authServices.updateUserProfile(updatedUser);
+
+      // Controller current user update
+      currentUser.value = updatedUser;
+
+      // TextFields disable
+      textFieldEnable.value = false;
+
+      Get.snackbar(
+        "Success",
+        "Profile updated successfully",
+        backgroundColor: Colors.grey,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        "Failed to update profile: ${e.toString()}",
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      log("Failed to update profile: $e");
+    } finally {
+      isProfileLoading.value = false;
     }
   }
 }

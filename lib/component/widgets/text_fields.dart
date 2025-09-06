@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TextFeilds extends StatelessWidget {
+class TextFields extends StatelessWidget {
   final String hintText;
   final IconData? icon;
   final bool isPassword;
   final TextEditingController controller;
 
-  const TextFeilds({
+  const TextFields({
     super.key,
     required this.hintText,
     this.icon,

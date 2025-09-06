@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/component/widgets/custom_button.dart';
-import 'package:food_go_app/component/widgets/text_feilds.dart';
+import 'package:food_go_app/component/widgets/text_fields.dart';
 import 'package:food_go_app/controller/auth_controller.dart';
 import 'package:food_go_app/view/signup_screen.dart';
 import 'package:get/get.dart';
@@ -50,12 +50,12 @@ class LogInScreen extends GetView<AuthController> {
                     const SizedBox(height: 20),
 
                     //This is the TextFields Section
-                    TextFeilds(
+                    TextFields(
                       hintText: 'Enter Your Email address',
                       controller: controller.loginEmailController,
                       icon: Icons.email,
                     ),
-                    TextFeilds(
+                    TextFields(
                       hintText: 'Enter Your Password',
                       controller: controller.loginPasswordController,
                       icon: Icons.lock,

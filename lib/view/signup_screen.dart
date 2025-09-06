@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/component/widgets/custom_button.dart';
-import 'package:food_go_app/component/widgets/text_feilds.dart';
+import 'package:food_go_app/component/widgets/text_fields.dart';
 import 'package:food_go_app/controller/auth_controller.dart';
 import 'package:food_go_app/view/log_in_screen.dart';
 import 'package:get/get.dart';
@@ -54,28 +54,28 @@ class SignupScreen extends GetView<AuthController> {
                 const SizedBox(height: 20),
 
                 // Text fields
-                TextFeilds(
+                TextFields(
                   hintText: 'Enter Your First Name',
                   controller: controller.firstNameController,
                   icon: Icons.person,
                 ),
-                TextFeilds(
+                TextFields(
                   hintText: 'Enter Your Last Name',
                   controller: controller.lastNameController,
                   icon: Icons.person_outline,
                 ),
-                TextFeilds(
+                TextFields(
                   hintText: 'Enter Your Email address',
                   controller: controller.signupemailController,
                   icon: Icons.email,
                 ),
-                TextFeilds(
+                TextFields(
                   hintText: 'Enter Your Password',
                   controller: controller.signuppasswordController,
                   icon: Icons.lock,
                   isPassword: true,
                 ),
-                TextFeilds(
+                TextFields(
                   hintText: 'Enter Your Address',
                   controller: controller.addressController,
                   icon: Icons.location_on,
