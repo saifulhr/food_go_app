@@ -5,6 +5,8 @@ class TextFields extends StatelessWidget {
   final IconData? icon;
   final bool isPassword;
   final TextEditingController controller;
+  final TextInputType inputType;
+  final int maxLines;
 
   const TextFields({
     super.key,
@@ -12,6 +14,8 @@ class TextFields extends StatelessWidget {
     this.icon,
     this.isPassword = false,
     required this.controller,
+    this.inputType = TextInputType.text,
+    this.maxLines = 1,
   });
 
   @override
@@ -21,11 +25,15 @@ class TextFields extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isPassword,
+        keyboardType: inputType,
+        maxLines: maxLines,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.grey[100],
           hintText: hintText,
-          prefixIcon: Icon(icon, color: const Color(0XFFef2a39)),
+          prefixIcon: icon != null
+              ? Icon(icon, color: const Color(0XFFef2a39))
+              : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,

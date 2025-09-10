@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_go_app/models/user_model.dart';
 import 'package:food_go_app/profile/profile_screen.dart';
 import 'package:food_go_app/services/auth_services.dart';
-import 'package:food_go_app/view/home_screen.dart';
+import 'package:food_go_app/view/home_screen/home_screen.dart';
 import 'package:food_go_app/view/spalsh_screen.dart';
 import 'package:get/get.dart';
 

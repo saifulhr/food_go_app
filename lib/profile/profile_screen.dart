@@ -25,8 +25,7 @@ class ProfileScreen extends GetView<AuthController> {
             return Center(child: CircularProgressIndicator());
           } else {
             controller.nameController.text =
-                "${controller.currentUser.value?.firstName ?? ""} ${controller.currentUser.value?.lastName ?? ""}"
-                    .trim();
+                "${controller.currentUser.value?.firstName ?? ""} ${controller.currentUser.value?.lastName ?? ""}";
             controller.emailController.text =
                 controller.currentUser.value?.email ?? "";
             controller.deliveryController.text =

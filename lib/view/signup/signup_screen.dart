@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_go_app/component/widgets/custom_button.dart';
 import 'package:food_go_app/component/widgets/text_fields.dart';
 import 'package:food_go_app/controller/auth_controller.dart';
-import 'package:food_go_app/view/log_in_screen.dart';
+import 'package:food_go_app/view/login/log_in_screen.dart';
 import 'package:get/get.dart';
 
 class SignupScreen extends GetView<AuthController> {

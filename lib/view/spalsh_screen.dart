@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_go_app/profile/profile_screen.dart';
 import 'package:food_go_app/theme/all_images.dart';
-import 'package:food_go_app/view/signup_screen.dart';
+import 'package:food_go_app/view/home_screen/home_screen.dart';
+import 'package:food_go_app/view/signup/signup_screen.dart';
 import 'package:get/route_manager.dart';
 
 class SpalshScreen extends StatefulWidget {
@@ -18,13 +18,15 @@ class _SpalshScreenState extends State<SpalshScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () {checkLoginStatus();});
+    Timer(Duration(seconds: 4), () {
+      checkLoginStatus();
+    });
   }
 
   checkLoginStatus() {
     User? currentuser = FirebaseAuth.instance.currentUser;
     if (currentuser != null) {
-      Get.offAll(ProfileScreen(), transition: Transition.noTransition);
+      Get.offAll(HomeScreen(), transition: Transition.noTransition);
     } else {
       Get.offAll(SignupScreen(), transition: Transition.noTransition);
     }
