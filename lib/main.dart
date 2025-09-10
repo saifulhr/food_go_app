@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_go_app/firebase_options.dart';
-import 'package:food_go_app/view/home_screen/home_screen.dart';
+import 'package:food_go_app/view/bottom_nav_bar.dart';
 import 'package:get/route_manager.dart';
 
 void main() async {
@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeScreen(),
+      home: BottomNavBar(),
     );
   }
 }

@@ -12,6 +12,7 @@ analyzer:
     avoid_print: ignore
     await_only_futures: ignore
     body_might_complete_normally_nullable: ignore
+    library_private_types_in_public_api: ignore
     strict_top_level_inference: ignore
     unnecessary_string_interpolations: ignore
     unused_local_variable: ignore
