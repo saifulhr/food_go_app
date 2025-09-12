@@ -1,13 +1,15 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:food_go_app/profile/profile_screen.dart';
+import 'package:food_go_app/theme/all_images.dart';
+import 'package:food_go_app/view/home_screen/home_screen.dart';
+import 'package:food_go_app/view/product_screen/add_product_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
-  
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
@@ -15,12 +17,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
-    Container(),
-    Container(),
-    Container(),
-    Container(),
-    Container(),
+    HomeScreen(),
+    ProfileScreen(),
+    AddProductScreen(),
+    Center(child: Text("Messages Page")),
+    Center(child: Text("Favorites Page")),
   ];
+
+  final List<String> icons = [
+    AllImages.homeIcon,
+    AllImages.userIcon,
+    AllImages.addIcon,
+    AllImages.chatIcon,
+    AllImages.fieldfavouriteIcon,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,46 +47,44 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         index: _currentIndex,
-        height: 70.0,
-        items: <CurvedNavigationBarItem>[
-          CurvedNavigationBarItem(
-            child: Icon(Icons.home, size: 27, color: Colors.white),
-            label: '',
-            labelStyle: TextStyle(color: Colors.white)
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.person, size: 27, color: Colors.white),
-            label: '',
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.add, size: 27, color: Colors.white),
-            label: '',
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.message_sharp, size: 27, color: Colors.white),
-            label: '',
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.favorite, size: 27, color: Colors.white),
-            label: '',
-          ),
-        ],
-        color: Color(0xFFE53E3E),
-        buttonBackgroundColor: Color(0xFFE53E3E),
+        height: 75,
         backgroundColor: Colors.transparent,
+        color: const Color(0xFFE53E3E),
+        buttonBackgroundColor: const Color(0xFFE53E3E),
+        animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
           _pageController.animateToPage(
             index,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
         },
-        letIndexChange: (index) => true,
+        items: List.generate(icons.length, (index) {
+          bool isSelected = index == _currentIndex;
+
+          double containerSize = isSelected ? 43 : 25;
+
+          return Container(
+            width: containerSize,
+            height: containerSize,
+            alignment: Alignment.center,
+
+            decoration: BoxDecoration(
+              color: isSelected ? Color(0xFFE53E3E) : Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+            child: Image.asset(
+              icons[index],
+              width: 20,
+              height: 20,
+              fit: BoxFit.cover,
+            ),
+          );
+        }),
       ),
     );
   }

@@ -11,14 +11,14 @@ class ImagePickerBottomSheet extends GetView<ProductController> {
     Get.lazyPut(() => ProductController());
 
     return Container(
-      height: 220,
+      height: 170,
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Wrap( 
-        runSpacing: 10,
+        runSpacing: 6,
         children: [
           Center(
             child: Container(

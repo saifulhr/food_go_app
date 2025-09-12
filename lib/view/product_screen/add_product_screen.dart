@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/component/widgets/custom_button.dart';
 import 'package:food_go_app/component/widgets/text_fields.dart';
-import 'package:food_go_app/view/home_screen/home_screen.dart';
+import 'package:food_go_app/view/bottom_nav_bar.dart';
 import 'package:food_go_app/view/product_screen/widgets/image_picker_section.dart';
 import 'package:food_go_app/view/product_screen/widgets/section_title.dart';
 import 'package:get/get.dart';
@@ -66,10 +66,10 @@ class AddProductScreen extends GetView<ProductController> {
             TextFields(
               hintText: "Enter product description",
               controller: controller.productDescriptionController,
-              maxLines: 2,
+              maxLines: 4,
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
 
             Obx(() {
               if (controller.isloading.value) {
@@ -77,11 +77,13 @@ class AddProductScreen extends GetView<ProductController> {
               } else {
                 return CustomButton(
                   text: "Create Product",
-                  onPressed: () {
-                    if (controller.productNameController.text.isEmpty ||
-                        controller.productImageController.text.isEmpty ||
-                        controller.productPriceController.text.isEmpty ||
-                        controller.productDescriptionController.text.isEmpty) {
+                  onPressed: () async {
+                    if (controller.productNameController.text.trim().isEmpty ||
+                        controller.selectedImage.value == null ||
+                        controller.productPriceController.text.trim().isEmpty ||
+                        controller.productDescriptionController.text
+                            .trim()
+                            .isEmpty) {
                       Get.snackbar(
                         "Error",
                         "All fields are required!",
@@ -91,18 +93,35 @@ class AddProductScreen extends GetView<ProductController> {
                       return;
                     }
 
-                    final uuid = const Uuid();
+                    controller.isloading.value = true;
+
+                    String? imageUrl = await controller
+                        .uplpadImageToCloudinary();
+
+                    if (imageUrl == null) {
+                      controller.isloading.value = false;
+                      Get.snackbar(
+                        "Error",
+                        "Image upload failed!",
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
+                      return;
+                    }
 
                     final newProduct = ProductModel(
-                      id: uuid.v4(),
+                      id: Uuid().v4(),
                       name: controller.productNameController.text,
-                      images: controller.productImageController.text,
+                      images: imageUrl,
                       description: controller.productDescriptionController.text,
                       price: controller.productPriceController.text,
                     );
 
-                    controller.addProduct(newProduct);
-                    Get.offAll(() => HomeScreen());
+                    await controller.addProduct(newProduct);
+
+                    controller.isloading.value = false;
+
+                    Get.offAll(() => BottomNavBar());
                   },
                 );
               }

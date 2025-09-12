@@ -44,7 +44,7 @@ dependencies:
   cloudinary_url_gen: ^1.0.0
   image_picker: ^1.2.0
   http: ^1.5.0
-  curved_labeled_navigation_bar: ^2.0.6
+  curved_navigation_bar: ^1.0.6
 
   
 
@@ -74,6 +74,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/png/
+    - assets/icon/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

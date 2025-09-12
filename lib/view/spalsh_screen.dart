@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_go_app/theme/all_images.dart';
-import 'package:food_go_app/view/home_screen/home_screen.dart';
+import 'package:food_go_app/view/bottom_nav_bar.dart';
 import 'package:food_go_app/view/signup/signup_screen.dart';
 import 'package:get/route_manager.dart';
 
@@ -26,7 +26,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
   checkLoginStatus() {
     User? currentuser = FirebaseAuth.instance.currentUser;
     if (currentuser != null) {
-      Get.offAll(HomeScreen(), transition: Transition.noTransition);
+      Get.offAll(BottomNavBar(), transition: Transition.noTransition);
     } else {
       Get.offAll(SignupScreen(), transition: Transition.noTransition);
     }

@@ -17,7 +17,7 @@ class ProductController extends GetxController {
   var uploadImageUrl = "".obs;
   // Product Controller
   final TextEditingController productNameController = TextEditingController();
-  final TextEditingController productImageController = TextEditingController();
+  
   final TextEditingController productDescriptionController =
       TextEditingController();
   final TextEditingController productPriceController = TextEditingController();
@@ -35,30 +35,53 @@ class ProductController extends GetxController {
     }
   }
 
+  // Cloudinary Iamge stroe Function
+
+  Future<String?> uplpadImageToCloudinary() async {
+  if (selectedImage.value == null) {
+    return null;
+  }
+  try {
+    final imageUrl = await CloudinaryService.uploadImage(selectedImage.value!);
+    if (imageUrl != null) {
+      uploadImageUrl.value = imageUrl;
+      return imageUrl;
+    }
+  } catch (e) {
+    print("Cloudinary Upload Error $e");
+    return null;
+  }
+}
+
+
   // Product add Function
   Future addProduct(ProductModel productModel) async {
-    isloading.value = true;
-    var serviceImageUrl= await CloudinaryService.uploadImage(selectedImage.value!);
-    uploadImageUrl.value = serviceImageUrl!;
-    await productServices.createProduct(productModel);
-    Get.snackbar(
-      "Success",
-      "Product Create Successfully",
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
-    isloading.value = false;
-    await fetchProduct();
-    clearAll();
-  }
+  isloading.value = true;
+
+  await productServices.createProduct(productModel);
+
+  Get.snackbar(
+    "Success",
+    "Product Created Successfully",
+    backgroundColor: Colors.green,
+    colorText: Colors.white,
+  );
+
+  isloading.value = false;
+  await fetchProduct();
+  clearAll();
+}
+
 
   // clear all feild
   clearAll() {
-    productNameController.clear();
-    productPriceController.clear();
-    productImageController.clear();
-    productDescriptionController.clear();
-  }
+  productNameController.clear();
+  productPriceController.clear();
+  productDescriptionController.clear();
+  uploadImageUrl.value = "";
+  selectedImage.value = null;
+}
+
 
   @override
   void onInit() {
