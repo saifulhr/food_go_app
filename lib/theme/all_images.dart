@@ -19,5 +19,8 @@ class AllImages {
   static final searchIcon='assets/icon/search.png';
   static final dropIcon='assets/icon/Drop.png';
   static final profileImage='assets/images/png/Mask group.png';
+  // Product Details Screen Icon Svg
 
+  static final leftarowIcon='assets/icon/svg/arrow-left.svg';
+  static final search01Icon='assets/icon/svg/search (1).svg';
 }

@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: controller.product.isEmpty
                       ? const Center(child: Text("No products found"))
-                      : CustomProductCard(controller: controller),
+                      : CustomProductCard(controller: controller,products: controller.product,),
                 ),
               ],
             ),
