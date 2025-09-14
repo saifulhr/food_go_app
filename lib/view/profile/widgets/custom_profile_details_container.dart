@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/auth_controller.dart';
-import 'package:food_go_app/profile/widgets/profile_screen_topbar.dart';
-import 'package:food_go_app/profile/widgets/text_field_custom.dart';
+import 'package:food_go_app/view/profile/widgets/profile_screen_topbar.dart';
+import 'package:food_go_app/view/profile/widgets/text_field_custom.dart';
 
 class CustomProfileDetailsContainer extends StatelessWidget {
   const CustomProfileDetailsContainer({super.key, required this.controller});

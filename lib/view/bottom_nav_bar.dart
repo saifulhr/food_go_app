@@ -1,9 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:food_go_app/profile/profile_screen.dart';
+import 'package:food_go_app/view/favourite/favourite_screen.dart';
+import 'package:food_go_app/view/profile/profile_screen.dart';
 import 'package:food_go_app/theme/all_images.dart';
-import 'package:food_go_app/view/home_screen/home_screen.dart';
-import 'package:food_go_app/view/product_screen/add_product_screen.dart';
+import 'package:food_go_app/view/home/home_screen.dart';
+import 'package:food_go_app/view/product/add_product_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -21,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ProfileScreen(),
     AddProductScreen(),
     Center(child: Text("Messages Page")),
-    Center(child: Text("Favorites Page")),
+    FavouriteScreen()
   ];
 
   final List<String> icons = [

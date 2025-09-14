@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/auth_controller.dart';
-import 'package:food_go_app/profile/widgets/coustom_profile_bottombutton.dart';
-import 'package:food_go_app/profile/widgets/custom_profile_details_container.dart';
+import 'package:food_go_app/view/profile/widgets/coustom_profile_bottombutton.dart';
+import 'package:food_go_app/view/profile/widgets/custom_profile_details_container.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends GetView<AuthController> {

@@ -6,6 +6,7 @@ class CustomTextButton extends StatelessWidget {
   final Color color;
   final IconData? icon;
   final Text? text;
+  final VoidCallback? ontap;
 
   const CustomTextButton({
     super.key,
@@ -14,19 +15,23 @@ class CustomTextButton extends StatelessWidget {
     required this.color,
     this.icon,
     this.text,
+    this.ontap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-        color: color,
-      ),
-      child: Center(
-        child: text,
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          color: color,
+        ),
+        child: Center(
+          child: text,
+        ),
       ),
     );
   }

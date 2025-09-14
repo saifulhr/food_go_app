@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_go_app/models/product_model.dart';
 import 'package:food_go_app/services/cloudinary_service.dart';
 import 'package:food_go_app/services/product_firebase_services.dart';
-import 'package:food_go_app/view/product_screen/widgets/image_picker_bottom_sheet.dart';
+import 'package:food_go_app/view/product/widgets/image_picker_bottom_sheet.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -37,7 +37,7 @@ class ProductController extends GetxController {
 
   // Cloudinary Iamge stroe Function
 
-  Future<String?> uplpadImageToCloudinary() async {
+  Future<String?> uploadImageToCloudinary() async {
   if (selectedImage.value == null) {
     return null;
   }
@@ -104,14 +104,19 @@ class ProductController extends GetxController {
 
   // Image Picker BottomSheet
   void showImagePickerBottomSheet() {
-    Get.bottomSheet(
-      const ImagePickerBottomSheet(),
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-    );
-  }
+  Get.bottomSheet(
+    ImagePickerBottomSheet(
+      onImageSelected: (ImageSource source) {
+        pickerImage(source); // This is ProductController's method
+      },
+    ),
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+  );
+}
+
   // Remove the container image logic
   void removeSelectedImage() {
     selectedImage.value = null;

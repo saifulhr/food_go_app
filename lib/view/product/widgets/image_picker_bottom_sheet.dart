@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:food_go_app/controller/product_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImagePickerBottomSheet extends GetView<ProductController> {
-  const ImagePickerBottomSheet({super.key});
+class ImagePickerBottomSheet extends StatelessWidget {
+  final Function(ImageSource source) onImageSelected;
+
+  const ImagePickerBottomSheet({super.key, required this.onImageSelected});
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ProductController());
-
     return Container(
       height: 170,
       padding: const EdgeInsets.all(20),
@@ -17,7 +16,7 @@ class ImagePickerBottomSheet extends GetView<ProductController> {
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      child: Wrap( 
+      child: Wrap(
         runSpacing: 6,
         children: [
           Center(
@@ -35,7 +34,7 @@ class ImagePickerBottomSheet extends GetView<ProductController> {
             leading: const Icon(Icons.camera_alt),
             title: const Text('Take a Photo'),
             onTap: () {
-              controller.pickerImage(ImageSource.camera);
+              onImageSelected(ImageSource.camera);
               Get.back();
             },
           ),
@@ -43,7 +42,7 @@ class ImagePickerBottomSheet extends GetView<ProductController> {
             leading: const Icon(Icons.photo_library),
             title: const Text('Choose from Gallery'),
             onTap: () {
-              controller.pickerImage(ImageSource.gallery);
+              onImageSelected(ImageSource.gallery);
               Get.back();
             },
           ),

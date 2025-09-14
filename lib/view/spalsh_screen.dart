@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_go_app/theme/all_images.dart';
 import 'package:food_go_app/view/bottom_nav_bar.dart';
-import 'package:food_go_app/view/signup/signup_screen.dart';
+import 'package:food_go_app/authentication/signup/signup_screen.dart';
 import 'package:get/route_manager.dart';
 
 class SpalshScreen extends StatefulWidget {

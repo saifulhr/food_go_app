@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/auth_controller.dart';
-import 'package:food_go_app/profile/widgets/custom_profile_textfeilds.dart';
+import 'package:food_go_app/view/profile/widgets/custom_profile_textfeilds.dart';
 import 'package:get/get.dart';
 
 class CoustomProfileTextfeild extends StatelessWidget {

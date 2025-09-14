@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/product_controller.dart';
 import 'package:food_go_app/models/product_model.dart';
-import 'package:food_go_app/view/home_screen/widgets/card_deatils.dart';
-import 'package:food_go_app/view/home_screen/widgets/card_image.dart';
-import 'package:food_go_app/view/home_screen/widgets/reating_favurite.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/product_details_page.dart';
+import 'package:food_go_app/view/home/screens/card_deatils.dart';
+import 'package:food_go_app/view/home/screens/card_image.dart';
+import 'package:food_go_app/view/home/screens/reating_favurite.dart';
+import 'package:food_go_app/view/product/product_details_screens/product_details_page.dart';
 import 'package:get/get.dart';
 
 class CustomProductCard extends StatelessWidget {
@@ -16,12 +16,14 @@ class CustomProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: products.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 16,
-        childAspectRatio: 0.65,
+        childAspectRatio: 0.60,
       ),
       itemBuilder: (context, index) {
         final product = products[index];

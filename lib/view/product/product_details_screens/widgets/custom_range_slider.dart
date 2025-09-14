@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/widgets/custom_thumb_shape.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/widgets/custom_track_shape.dart';
+import 'package:food_go_app/view/product/product_details_screens/widgets/custom_thumb_shape.dart';
+import 'package:food_go_app/view/product/product_details_screens/widgets/custom_track_shape.dart';
 
 class CustomRangeSlider extends StatefulWidget {
   const CustomRangeSlider({super.key});

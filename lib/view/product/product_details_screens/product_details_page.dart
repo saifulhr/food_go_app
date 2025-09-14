@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_go_app/models/product_model.dart';
 import 'package:food_go_app/theme/all_images.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/screens/product_bottom_nav_bar.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/screens/product_image.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/screens/product_name_reating_description.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/screens/product_spicy_section.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/widgets/custom_product_butoon.dart';
+import 'package:food_go_app/view/product/product_details_screens/screens/product_bottom_nav_bar.dart';
+import 'package:food_go_app/view/product/product_details_screens/screens/product_image.dart';
+import 'package:food_go_app/view/product/product_details_screens/screens/product_name_reating_description.dart';
+import 'package:food_go_app/view/product/product_details_screens/screens/product_spicy_section.dart';
+import 'package:food_go_app/view/product/product_details_screens/widgets/custom_product_butoon.dart';
 import 'package:get/get.dart';
 
 class ProductDetailsPage extends StatefulWidget {

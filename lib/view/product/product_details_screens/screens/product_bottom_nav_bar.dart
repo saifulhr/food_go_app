@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/models/product_model.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/widgets/custom_text_button.dart';
+import 'package:food_go_app/view/product/product_details_screens/widgets/custom_text_button.dart';
 
 class ProductBottomNavBar extends StatelessWidget {
   const ProductBottomNavBar({super.key, required this.product});

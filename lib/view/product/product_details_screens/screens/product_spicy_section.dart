@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_go_app/view/product_screen/product_details_screens/widgets/custom_range_slider.dart';
+import 'package:food_go_app/view/product/product_details_screens/widgets/custom_range_slider.dart';
 
 class ProductSpicySection extends StatelessWidget {
   const ProductSpicySection({super.key});

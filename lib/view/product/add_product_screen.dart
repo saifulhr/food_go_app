@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_go_app/component/widgets/custom_button.dart';
 import 'package:food_go_app/component/widgets/text_fields.dart';
 import 'package:food_go_app/view/bottom_nav_bar.dart';
-import 'package:food_go_app/view/product_screen/widgets/image_picker_section.dart';
-import 'package:food_go_app/view/product_screen/widgets/section_title.dart';
+import 'package:food_go_app/view/product/widgets/image_picker_section.dart';
+import 'package:food_go_app/view/product/widgets/section_title.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:food_go_app/controller/product_controller.dart';
@@ -50,7 +50,16 @@ class AddProductScreen extends GetView<ProductController> {
           children: [
             SectionTitle(title: "Upload your image here"),
             SizedBox(height: 10),
-            ImagePickerSection(),
+            Obx(
+              () => ImagePickerSection(
+                imageFile: controller.selectedImage.value,
+                onRemoveImage: controller.removeSelectedImage,
+                onImagePickTap: () {
+                  controller.showImagePickerBottomSheet();
+                },
+              ),
+            ),
+
             SectionTitle(title: 'Product Name'),
             TextFields(
               hintText: "Enter product name",
@@ -96,7 +105,7 @@ class AddProductScreen extends GetView<ProductController> {
                     controller.isloading.value = true;
 
                     String? imageUrl = await controller
-                        .uplpadImageToCloudinary();
+                        .uploadImageToCloudinary();
 
                     if (imageUrl == null) {
                       controller.isloading.value = false;
