@@ -10,6 +10,7 @@
 analyzer:
   errors:
     avoid_print: ignore
+    avoid_types_as_parameter_names: ignore
     await_only_futures: ignore
     body_might_complete_normally_nullable: ignore
     library_private_types_in_public_api: ignore

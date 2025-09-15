@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/banner_controller.dart';
 import 'package:food_go_app/theme/all_images.dart';
+import 'package:food_go_app/view/cart/cart_screen.dart';
 import 'package:food_go_app/view/home/screens/banner_slider.dart';
 import 'package:food_go_app/view/home/screens/custom_product_card.dart';
 import 'package:food_go_app/view/home/screens/seach_and_notification.dart';
@@ -55,6 +56,19 @@ class HomeScreen extends GetView<ProductController> {
                               ),
                             ),
                           ],
+                        ),
+                        //Cart Section
+                        Padding(
+                          padding: const EdgeInsets.only(top: 11.0,left: 20),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                () => CartScreen(),
+                                transition: Transition.noTransition,
+                              );
+                            },
+                            child: Icon(Icons.shopping_cart_outlined, size: 35),
+                          ),
                         ),
                         // Profile Image
                         Container(

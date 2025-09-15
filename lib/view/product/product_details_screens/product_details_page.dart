@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_go_app/models/product_model.dart';
 import 'package:food_go_app/theme/all_images.dart';
+import 'package:food_go_app/view/cart/cart_screen.dart';
 import 'package:food_go_app/view/product/product_details_screens/screens/product_bottom_nav_bar.dart';
 import 'package:food_go_app/view/product/product_details_screens/screens/product_image.dart';
 import 'package:food_go_app/view/product/product_details_screens/screens/product_name_reating_description.dart';
@@ -20,12 +21,13 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int number = 1;
+
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
     return Scaffold(
       backgroundColor: Colors.white,
-      //App Bar with Bigger Left Arrow
+      //App Bar with Left Arrow
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
         child: AppBar(
@@ -44,13 +46,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: SvgPicture.asset(
-                AllImages.search01Icon,
-                height: 30,
-                width: 30,
-                fit: BoxFit.scaleDown,
+            GestureDetector(
+              onTap: () {
+                Get.to(() => CartScreen(), transition: Transition.noTransition);
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(Icons.shopping_cart_outlined, size: 27),
               ),
             ),
           ],
@@ -73,7 +75,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Spicy Level
-                ProductSpicySection(),
+                const ProductSpicySection(),
                 const SizedBox(width: 40),
                 // Portion Selector
                 Expanded(
@@ -127,12 +129,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 100), // Space for bottom bar
+            const SizedBox(height: 100),// Space for bottom bar
           ],
         ),
       ),
-      //Fixed Bottom Bar for Price & Order Now
-      bottomNavigationBar: ProductBottomNavBar(product: product),
+      bottomNavigationBar: ProductBottomNavBar(product: product, quantity: number),
     );
   }
 }
