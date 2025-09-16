@@ -22,6 +22,29 @@ class CartScreen extends GetView<CartController> {
           ),
         ),
       ),
+      body: Obx(() {
+        if (controller.cartItems.isEmpty) {
+          return Center(child: Text("Your cart is empty"));
+        }
+
+        return ListView.builder(
+          itemCount: controller.cartItems.length,
+          itemBuilder: (context, index) {
+            var data = controller.cartItems[index];
+            return Padding(
+              padding: EdgeInsets.all(10),
+              child: Card(
+                elevation: 0,
+                child: ListTile(
+                  title: Text("${data.productName}"),
+                  subtitle: Text('Quantity: ${data.quantity}'),
+                  trailing: Text('\$${data.productPrice}'),
+                ),
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 }

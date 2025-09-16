@@ -41,4 +41,6 @@ class CartModel {
         "UserId": userId,
         "Quantity": quantity,
     };
+
+  copyWith({required String id}) {}
 }

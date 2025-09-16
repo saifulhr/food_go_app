@@ -15,11 +15,37 @@ class ProductNameReatingDescription extends StatelessWidget {
         Text(
           product.name ?? 'Product Name',
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: Color(0xff3C2F2F),
           ),
         ),
+        const SizedBox(height: 8),
+
+        RichText(
+          text: TextSpan(
+            text: 'Price : ',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff3C2F2F),
+            ),
+            children: [
+              TextSpan(
+                text: '${product.price ?? '0'} ',
+                style: const TextStyle(color: Color(0xff3C2F2F)),
+              ),
+              const TextSpan(
+                text: '\$',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+
         const SizedBox(height: 8),
 
         // Rating

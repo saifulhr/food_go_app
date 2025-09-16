@@ -12,19 +12,15 @@ import 'package:uuid/uuid.dart';
 
 class CartController extends GetxController {
   CartServices cartServices = CartServices();
-  //Order Services
   OrderServices orderServices = OrderServices();
-  //Cart Items
+
   var cartItems = <CartModel>[].obs;
-  //Total Amount
   RxDouble totalAmount = 0.0.obs;
-  //Total Items
+
   RxInt totalItems = 0.obs;
-  // Cart Loading
   var isLoading = false.obs;
 
   var uuid = Uuid();
-  // Fint Id User
   Future<String?> findDocumentId(String productId) async {
     final snapshot = await FirebaseFirestore.instance
         .collection("carts")
@@ -39,7 +35,6 @@ class CartController extends GetxController {
     return snapshot.docs.first.id;
   }
 
-  //Fetch Item Cart
   Future fetchItemcart() async {
     isLoading.value = false;
     var cartdata = await cartServices.getCart();
@@ -48,7 +43,6 @@ class CartController extends GetxController {
     isLoading.value = false;
   }
 
-  //Add to Cart
   Future addTocart(ProductModel productModel, int quantity) async {
     isLoading.value = true;
 
@@ -75,7 +69,7 @@ class CartController extends GetxController {
       );
 
       await cartServices.addTocart(cartModel);
-      //This is the Snackbar
+
       Get.snackbar(
         "Success",
         "Cart Item Successfully",
@@ -87,7 +81,6 @@ class CartController extends GetxController {
     }
   }
 
-  //Calculate Total Price Off Cart Total Item
   void calculatePriceTotal() {
     totalItems.value = cartItems.length;
 
@@ -99,7 +92,6 @@ class CartController extends GetxController {
     );
   }
 
-  // Cart Page Increment Quantity
   Future incrementQuantity(CartModel cart) async {
     final documentId = await findDocumentId(cart.productId!);
 
@@ -110,7 +102,6 @@ class CartController extends GetxController {
     await fetchItemcart();
   }
 
-  // Cart Page Dincrement Quantity
   Future decrementQuantity(CartModel cart) async {
     final documentId = await findDocumentId(cart.productId!);
 
@@ -120,7 +111,6 @@ class CartController extends GetxController {
     await fetchItemcart();
   }
 
-  // Cart Remove
   Future remove(CartModel cart) async {
     final documentId = await findDocumentId(cart.productId!);
 
@@ -129,12 +119,10 @@ class CartController extends GetxController {
     await fetchItemcart();
   }
 
-  //Clear Cart Function
   Future clearCart() async {
     await cartServices.clearCart(FirebaseAuth.instance.currentUser!.uid);
   }
 
-  // Order Place Function
   Future placeOrder() async {
     if (cartItems.isEmpty) {
       Get.snackbar("Error", "Cart is empty");
@@ -144,7 +132,7 @@ class CartController extends GetxController {
     final newOrder = OrderModel(
       orderId: Uuid().v4(),
       userId: FirebaseAuth.instance.currentUser!.uid,
-      totalAmount: totalAmount.value,
+      totalAmount: totalAmount.value!,
       totalItems: totalItems.value,
       items: cartItems.map((cartkeyValue) {
         return {

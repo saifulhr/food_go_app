@@ -5,12 +5,12 @@ import 'package:food_go_app/models/order_model.dart';
 class OrderServices {
   final CollectionReference orderCOllection = FirebaseFirestore.instance
       .collection("ordes");
-//Order Place Function
+
   Future placeOrder(OrderModel orderModel) async {
     await orderCOllection.add(orderModel.toJson());
   }
 
-//Get Order Function
+
   Future<List<OrderModel>?> getOrder() async {
     try {
       QuerySnapshot snap = await orderCOllection

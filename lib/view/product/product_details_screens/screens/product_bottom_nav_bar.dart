@@ -16,7 +16,7 @@ class ProductBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CartController cartController =Get.put(CartController());
+    final CartController cartController = Get.put(CartController());
 
     return SafeArea(
       child: Padding(
@@ -24,25 +24,44 @@ class ProductBottomNavBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () {
-                cartController.addTocart(product, quantity);
-              },
-              child: CustomTextButton(
-                height: 50,
-                width: 115,
-                color: const Color(0xffEF2A39),
-                text: const Text(
-                  'Add to cart',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+            Obx(() {
+              return GestureDetector(
+                onTap: cartController.isLoading.value
+                    ? null
+                    : () {
+                        cartController.addTocart(product, quantity);
+                      },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CustomTextButton(
+                      height: 50,
+                      width: 115,
+                      color: const Color(0xffEF2A39),
+                      text: Text(
+                        cartController.isLoading.value ? '' : 'Add to cart',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    if (cartController.isLoading.value)
+                      const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2.5,
+                        ),
+                      ),
+                  ],
                 ),
-              ),
-            ),
+              );
+            }),
+
             CustomTextButton(
               height: 50,
               width: 180,

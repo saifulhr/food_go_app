@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_go_app/models/user_model.dart';
-import 'package:food_go_app/view/profile/profile_screen.dart';
 import 'package:food_go_app/services/auth_services.dart';
 import 'package:food_go_app/view/bottom_nav_bar.dart';
 import 'package:food_go_app/view/spalsh_screen.dart';
@@ -66,7 +65,7 @@ class AuthController extends GetxController {
       }
       log("${user?.email}");
       // back to all screen
-      Get.offAll(() => ProfileScreen(), transition: Transition.noTransition);
+      Get.offAll(() => BottomNavBar(), transition: Transition.noTransition);
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;

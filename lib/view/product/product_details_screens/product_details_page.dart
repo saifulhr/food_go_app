@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_go_app/controller/cart_controller.dart';
 import 'package:food_go_app/models/product_model.dart';
 import 'package:food_go_app/theme/all_images.dart';
 import 'package:food_go_app/view/cart/cart_screen.dart';
@@ -20,6 +21,8 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  final CartController cartController = Get.put(CartController());
+
   int number = 1;
 
   @override
@@ -29,7 +32,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       backgroundColor: Colors.white,
       //App Bar with Left Arrow
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -46,13 +49,48 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
           ),
           actions: [
-            GestureDetector(
-              onTap: () {
-                Get.to(() => CartScreen(), transition: Transition.noTransition);
-              },
-              child: const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(Icons.shopping_cart_outlined, size: 27),
+            Obx(
+              () => Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => CartScreen(),
+                        transition: Transition.noTransition,
+                      );
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(Icons.shopping_cart_outlined, size: 27),
+                    ),
+                  ),
+                  //Cart Value Position
+                  Positioned(
+                    right: 4,
+                    top: -13,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 20,
+                        minHeight: 20,
+                      ),
+                      child: Text(
+                        '${cartController.totalItems.value}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -129,11 +167,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 100),// Space for bottom bar
+            const SizedBox(height: 100), // Space for bottom bar
           ],
         ),
       ),
-      bottomNavigationBar: ProductBottomNavBar(product: product, quantity: number),
+      bottomNavigationBar: ProductBottomNavBar(
+        product: product,
+        quantity: number,
+      ),
     );
   }
 }
