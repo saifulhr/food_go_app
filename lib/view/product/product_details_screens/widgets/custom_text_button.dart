@@ -15,7 +15,7 @@ class CustomTextButton extends StatelessWidget {
     required this.color,
     this.icon,
     this.text,
-    this.ontap,
+    this.ontap, 
   });
 
   @override

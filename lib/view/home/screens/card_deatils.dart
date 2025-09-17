@@ -39,7 +39,7 @@ class CardDetails extends StatelessWidget {
         SizedBox(height: 6),
     
         Text(
-          "\$${product.price}",
+          "৳${product.price}",
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.green,

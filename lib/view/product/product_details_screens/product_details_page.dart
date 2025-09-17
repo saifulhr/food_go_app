@@ -21,7 +21,7 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  final CartController cartController = Get.put(CartController());
+  final CartController cartController = Get.find<CartController>();
 
   int number = 1;
 
@@ -167,7 +167,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 100), // Space for bottom bar
+            const SizedBox(height: 100),
           ],
         ),
       ),

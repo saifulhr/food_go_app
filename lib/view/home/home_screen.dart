@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/banner_controller.dart';
+import 'package:food_go_app/controller/cart_controller.dart';
+import 'package:food_go_app/controller/product_controller.dart';
 import 'package:food_go_app/theme/all_images.dart';
 import 'package:food_go_app/view/cart/cart_screen.dart';
 import 'package:food_go_app/view/home/screens/banner_slider.dart';
 import 'package:food_go_app/view/home/screens/custom_product_card.dart';
 import 'package:food_go_app/view/home/screens/seach_and_notification.dart';
 import 'package:get/get.dart';
-import 'package:food_go_app/controller/product_controller.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class HomeScreen extends GetView<ProductController> {
   const HomeScreen({super.key});
@@ -14,11 +16,14 @@ class HomeScreen extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => BannerController());
-    final ProductController controller = Get.put(ProductController());
+
+    final ProductController productController = Get.put(ProductController());
+    final CartController cartController = Get.put(CartController()); // ✅ Name fixed
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
-        if (controller.isloading.value) {
+        if (productController.isloading.value) {
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -30,11 +35,12 @@ class HomeScreen extends GetView<ProductController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //Text and Profile
+                    // Header Row
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Title
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
@@ -57,19 +63,46 @@ class HomeScreen extends GetView<ProductController> {
                             ),
                           ],
                         ),
-                        //Cart Section
+
+                        // Cart Icon with badge
                         Padding(
-                          padding: const EdgeInsets.only(top: 11.0,left: 20),
+                          padding: const EdgeInsets.only(top: 11.0, left: 20),
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(
-                                () => CartScreen(),
-                                transition: Transition.noTransition,
-                              );
+                              Get.to(() => const CartScreen(), transition: Transition.noTransition);
                             },
-                            child: Icon(Icons.shopping_cart_outlined, size: 35),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                const Icon(Icons.shopping_cart_outlined, size: 35),
+                                Obx(() {
+                                  if (cartController.totalItems.value == 0) return const SizedBox();
+
+                                  return Positioned(
+                                    right: -6,
+                                    top: -6,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Text(
+                                        '${cartController.totalItems.value}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ],
+                            ),
                           ),
                         ),
+
                         // Profile Image
                         Container(
                           width: 50,
@@ -86,38 +119,31 @@ class HomeScreen extends GetView<ProductController> {
                     ),
 
                     const SizedBox(height: 20),
-                    // Search Bar o Notification
-                    SearchAndNotification(),
+                    // Search
+                    const SearchAndNotification(),
                   ],
                 ),
               ),
 
-              // Scrollable Part
+              // Product List & Banner
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       const SizedBox(height: 15),
-
-                      // Carousel banner gulo
-                      BannerSlider(),
-
+                      const BannerSlider(),
                       const SizedBox(height: 15),
-
-                      // Products
-                      controller.product.isEmpty
+                      productController.product.isEmpty
                           ? const Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: Text("No Products"),
                             )
                           : Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                              ),
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
                               child: CustomProductCard(
-                                controller: controller,
-                                products: controller.product,
+                                controller: productController,
+                                products: productController.product,
                               ),
                             ),
                     ],

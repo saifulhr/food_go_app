@@ -36,7 +36,7 @@ class ProductNameReatingDescription extends StatelessWidget {
                 style: const TextStyle(color: Color(0xff3C2F2F)),
               ),
               const TextSpan(
-                text: '\$',
+                text: '৳',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,

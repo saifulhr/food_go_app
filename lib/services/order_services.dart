@@ -4,7 +4,7 @@ import 'package:food_go_app/models/order_model.dart';
 
 class OrderServices {
   final CollectionReference orderCOllection = FirebaseFirestore.instance
-      .collection("ordes");
+      .collection("orders");
 
   Future placeOrder(OrderModel orderModel) async {
     await orderCOllection.add(orderModel.toJson());

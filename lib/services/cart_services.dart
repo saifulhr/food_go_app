@@ -18,14 +18,14 @@ class CartServices {
   Future<List<CartModel>?> getCart() async {
     try {
       QuerySnapshot snap = await cartCollection
-          .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where("UserId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
 
       return snap.docs
           .map((d) => CartModel.fromJson(d.data() as Map<String, dynamic>))
           .toList();
     } catch (e) {
-      print(e.toString());
+      print("Error fetching cart: ${e.toString()}");
       return null;
     }
   }
@@ -33,7 +33,7 @@ class CartServices {
   // Update quantity
 
   Future<void> updateQuantity(String cartId, int newQuantity) async {
-    await cartCollection.doc(cartId).update({"quantity": newQuantity});
+    await cartCollection.doc(cartId).update({"Quantity": newQuantity});
   }
 
   // Delete Item cart
@@ -44,7 +44,7 @@ class CartServices {
 
   Future clearCart(String documentId) async {
     final snapshot = await cartCollection
-        .where("userId", isEqualTo: documentId)
+        .where("UserId", isEqualTo: documentId)
         .get();
 
     for (var document in snapshot.docs) {

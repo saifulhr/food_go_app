@@ -3,7 +3,7 @@ class CartModel {
     String? id;
     String? productName;
     String? productId;
-    String? productIamge;
+    String? productImage;
     String? productDescription;
     String? productPrice;
     String? userId;
@@ -13,7 +13,7 @@ class CartModel {
         this.id,
         this.productName,
         this.productId,
-        this.productIamge,
+        this.productImage,
         this.productDescription,
         this.productPrice,
         this.userId,
@@ -24,7 +24,7 @@ class CartModel {
         id: json["id"],
         productName: json["ProductName"],
         productId: json["ProductId"],
-        productIamge: json["ProductIamge"],
+        productImage: json["ProductIamge"],
         productDescription: json["ProductDescription"],
         productPrice: json["ProductPrice"],
         userId: json["UserId"],
@@ -35,7 +35,7 @@ class CartModel {
         "id": id,
         "ProductName": productName,
         "ProductId": productId,
-        "ProductIamge": productIamge,
+        "ProductIamge": productImage,
         "ProductDescription": productDescription,
         "ProductPrice": productPrice,
         "UserId": userId,

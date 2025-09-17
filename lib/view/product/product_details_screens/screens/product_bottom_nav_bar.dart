@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_go_app/controller/cart_controller.dart';
 import 'package:food_go_app/models/product_model.dart';
+import 'package:food_go_app/view/cart/order/order_screens.dart';
 import 'package:food_go_app/view/product/product_details_screens/widgets/custom_text_button.dart';
 import 'package:get/get.dart';
 
@@ -62,17 +63,24 @@ class ProductBottomNavBar extends StatelessWidget {
               );
             }),
 
-            CustomTextButton(
-              height: 50,
-              width: 180,
-              color: const Color(0xff3C2F2F),
-              text: const Text(
-                'ORDER NOW',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: () async {
+                await cartController.addTocart(product, quantity);
+                await cartController.fetchItemcart();
+                Get.to(() => const OrderScreens());
+              },
+              child: CustomTextButton(
+                height: 50,
+                width: 180,
+                color: const Color(0xff3C2F2F),
+                text: const Text(
+                  'ORDER NOW',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
